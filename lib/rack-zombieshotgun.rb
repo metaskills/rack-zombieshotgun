@@ -1,4 +1,19 @@
 module Rack
+  
+  ##
+  # Rack middleware for protecting against Windows zombie attacks.
+  #
+  # According to the The Zombie Survival Guide [1], there are better ways
+  # to protect yourself from Zombies, shotguns not at top of the list. That 
+  # said, this middleware might not be the best tool either, but like 
+  # shotguns, it should be fun. And that's the point!
+  # 
+  # [1] http://en.wikipedia.org/wiki/The_Zombie_Survival_Guide
+  #
+  # === Options:
+  #
+  #   :agents         Toggle agent kills by passing false. Default is true.
+  #   :directories    Toggle directory kills by passing false. Default is true.
   class ZombieShotgun
     
     ZOMBIE_AGENTS = [
