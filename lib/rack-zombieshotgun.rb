@@ -7,7 +7,7 @@ module Rack
       /Microsoft Data Access Internet Publishing Provider/
     ].freeze
 
-    ZOMBIE_DIRS = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict'].freeze
+    ZOMBIE_DIRS = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict'].to_set.freeze
     
     attr_reader :options, :request, :agent
     
