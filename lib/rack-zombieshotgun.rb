@@ -4,9 +4,12 @@ module Rack
   # Rack middleware for protecting against Windows zombie attacks.
   #
   # According to the The Zombie Survival Guide [1], there are better ways
-  # to protect yourself from Zombies, shotguns not at top of the list. That 
-  # said, this middleware might not be the best tool either, but like 
+  # to protect yourself from Zombies, shotguns not being at top of the list. 
+  # That  said, this middleware might not be the best tool either, but like 
   # shotguns, it should be fun. And that's the point!
+  # 
+  # When zombie attack conditions are met, issues a head not found response, 
+  # meaning no body, with a 404 status. Poetry.
   # 
   # [1] http://en.wikipedia.org/wiki/The_Zombie_Survival_Guide
   #
