@@ -4,8 +4,7 @@ module Rack
     ZOMBIE_AGENTS = [
       'FrontPage',
       'Microsoft Office Protocol Discovery',
-      'Microsoft Data Access Internet Publishing Provider Protocol Discovery',
-      'Microsoft Data Access Internet Publishing Provider Cache Manager'
+      'Microsoft Data Access Internet Publishing Provider'
     ].freeze
 
     ZOMBIE_DIRS = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict'].freeze
@@ -13,8 +12,10 @@ module Rack
     attr_reader :options, :request, :agent
     
     def initialize(app, options={})
-      @app = app
-      @options = options
+      @app, @options = app, {
+        :agents => true,
+        :directories => true
+      }.merge(options)
     end
     
     def call(env)
@@ -36,15 +37,12 @@ module Rack
 
     def zombie_dir_attack?
       path = request.path_info
-      ZOMBIE_DIRS.any? { |dir| path.include?("/#{dir}/") }
+      options[:directories] && ZOMBIE_DIRS.any? { |dir| path.include?("/#{dir}/") }
     end
 
     def zombie_agent_attack?
-      agent && ZOMBIE_AGENTS.any? do |za|
-        agent =~ /#{za}/
-      end
+      options[:agents] && agent && ZOMBIE_AGENTS.any? { |za| agent =~ /#{za}/ }
     end
-
     
   end
 end
