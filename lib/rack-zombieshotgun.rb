@@ -4,8 +4,9 @@ module Rack
     ZOMBIE_AGENTS       = ['FrontPage',
                            'Microsoft Office Protocol Discovery',
                            'Microsoft Data Access Internet Publishing Provider Protocol Discovery',
-                           'Microsoft Data Access Internet Publishing Provider Cache Manager']
-    ZOMBIE_ATTACK_DIRS  = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict']
+                           'Microsoft Data Access Internet Publishing Provider Cache Manager'].freeze
+
+    ZOMBIE_ATTACK_DIRS  = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict'].freeze
     
     def initialize(app, options={})
       @app = app
@@ -27,14 +28,14 @@ module Rack
     end
 
     def zombie_attack_on_directory?
-      request_path = request.path.from(1)
-      request_dir = request_path.index('/').nil? ? request_path : request_path.to(request_path.index('/')-1)    
-      ZOMBIE_ATTACK_DIRS.include?(request_dir)
+      # request_path = request.path.from(1)
+      # request_dir = request_path.index('/').nil? ? request_path : request_path.to(request_path.index('/')-1)    
+      # ZOMBIE_ATTACK_DIRS.include?(request_dir)
     end
 
     def zombie_agent_attack?
-      ua = request.env['HTTP_USER_AGENT']
-      !ua.blank? && ZOMBIE_AGENTS.any? { |za| ua =~ /#{za}/ }
+      # ua = request.env['HTTP_USER_AGENT']
+      # !ua.blank? && ZOMBIE_AGENTS.any? { |za| ua =~ /#{za}/ }
     end
 
     
