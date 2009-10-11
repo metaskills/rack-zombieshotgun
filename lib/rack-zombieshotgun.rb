@@ -2,9 +2,9 @@ module Rack
   class ZombieShotgun
     
     ZOMBIE_AGENTS = [
-      'FrontPage',
-      'Microsoft Office Protocol Discovery',
-      'Microsoft Data Access Internet Publishing Provider'
+      /FrontPage/,
+      /Microsoft Office Protocol Discovery/,
+      /Microsoft Data Access Internet Publishing Provider/
     ].freeze
 
     ZOMBIE_DIRS = ['_vti_bin','MSOffice','verify-VCNstrict','notified-VCNstrict'].freeze
@@ -41,7 +41,7 @@ module Rack
     end
 
     def zombie_agent_attack?
-      options[:agents] && agent && ZOMBIE_AGENTS.any? { |za| agent =~ /#{za}/ }
+      options[:agents] && agent && ZOMBIE_AGENTS.any? { |za| agent =~ za }
     end
     
   end
